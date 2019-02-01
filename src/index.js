@@ -1,5 +1,7 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
+import React, { Component } from "react"
+import ReactDOM from "react-dom"
+import App from './app/App'
 
-const wrapper = document.getElementById("index");
-wrapper ? ReactDOM.render(<div>app</div>, wrapper) : false;
+const wrapper = document.getElementById("index")
+
+wrapper ? ReactDOM.render(<App />, wrapper) : false;

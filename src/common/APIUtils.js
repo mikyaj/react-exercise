@@ -5,13 +5,20 @@ const getRepositoriesByLanguage = (languageName) => {
   const params = {
     q: `language:${languageName}`,
     order: 'desc',
-    per_page: 10
+    per_page: 10,
+    sort: 'stars'
   };
   return axios.get(GitEndPoints.SearchRepo, { params });
 }
 
-const createUser = (data) => {
+const registerUser = (data) => {
   return axios.post(UserEndPoints.Create, { data: data })
 }
 
-export { getRepositoriesByLanguage, createUser };
+const reduceDataForChart = (items) => {
+  return items.map((item) => {
+    return { repoName: item.name, stars: item.stargazers_count }
+  })
+}
+
+export { getRepositoriesByLanguage, registerUser, reduceDataForChart };

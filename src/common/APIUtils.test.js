@@ -13,11 +13,11 @@ describe('#getRepositoriesByLanguage()', () => {
 const userData = {
   name: "mudasser",
   address: "stockholm"
-};
+}
 
-describe('#createUser()', () => {
+describe('#registerUser()', () => {
   it('should post user data', () => {
-    return api.createUser(userData)
+    return api.registerUser(userData)
       .then(response => {
         expect(response.status).toEqual(200);
       })
