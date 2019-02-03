@@ -1,7 +1,7 @@
-##### Introduction
+#### Introduction
 This application is developed with reactjs, material-ui, webpack and babel.
 
-##### Installation
+#### Installation
 Requirements:
 - git
 - Node v7 or higher
