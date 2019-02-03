@@ -11,6 +11,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+
 const theme = createMuiTheme({ typography: { useNextVariants: true } });
 
 class App extends React.Component {

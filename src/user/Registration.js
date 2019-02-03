@@ -33,12 +33,17 @@ const initialState = {
   nameError: false,
   dateOfBirthError: false,
   hourOfDeliveryError: false,
-  disabled: true,
+  registerBtnDisabled: true,
   snackbarOpen: false
 }
 
 class Registration extends React.Component {
-  state = { ...initialState };
+  constructor(){
+    super()
+    this.state = { 
+      ...initialState 
+    }
+  }
 
   handleChange = (value, type) => {
     const nextState = {};
@@ -58,9 +63,9 @@ class Registration extends React.Component {
       this.setState({ hourOfDeliveryError: nextState.hourOfDelivery ? false : true });
     }
     if (nextState.name && nextState.dateOfBirth && nextState.hourOfDelivery) {
-      this.setState({ disabled: false })
+      this.setState({ registerBtnDisabled: false })
     } else {
-      this.setState({ disabled: true })
+      this.setState({ registerBtnDisabled: true })
     }
   }
 
@@ -71,7 +76,6 @@ class Registration extends React.Component {
       dateOfBirth: this.state.dateOfBirth,
       hourOfDelivery: this.state.hourOfDelivery
     }).then((response) => {
-
       this.setState({
         ...initialState,
         snackbarOpen: true
@@ -87,20 +91,19 @@ class Registration extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     const { name, address, dateOfBirth, hourOfDelivery, nameError, dateOfBirthError, hourOfDeliveryError } = this.state;
 
     return (
-      <div className={classes.container}>
+      <div>
         <div>
-          <FormControl className={classes.formControl}>
+          <FormControl>
             <InputLabel htmlFor="component-name">Name</InputLabel>
             <Input id="component-name" value={name} onChange={e => this.handleChange(e.target.value, 'name')} />
           </FormControl>
           <FormHelperText id="component-error-text">{nameError ? 'Name is required' : ''}</FormHelperText>
         </div>
         <div>
-          <FormControl className={classes.formControl}>
+          <FormControl>
             <InputLabel htmlFor="component-address">Address</InputLabel>
             <Input id="component-address" value={address} onChange={e => this.handleChange(e.target.value, 'address')} />
             <FormHelperText id="component-error-text"></FormHelperText>
@@ -130,7 +133,7 @@ class Registration extends React.Component {
           />
           <FormHelperText id="component-error-text">{this.state.hourOfDeliveryError ? 'hour of delivery is required' : ''}</FormHelperText>
         </div>
-        <Button variant="contained" disabled={this.state.disabled} color="primary" className={classes.button} onClick={this.register}>
+        <Button variant="contained" disabled={this.state.registerBtnDisabled} color="primary" onClick={this.register}>
           Register
         </Button>
         <Snackbar
@@ -151,8 +154,4 @@ class Registration extends React.Component {
   }
 }
 
-Registration.propTypes = {
-  classes: PropTypes.object.isRequired,
-}
-
-export default withStyles(styles)(Registration)
+export default Registration
