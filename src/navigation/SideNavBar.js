@@ -14,6 +14,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { withStyles } from '@material-ui/core/styles';
 import Registration from "../user/Registration";
 import GitChart from '../gitChart/GitChart';
+import { NavLink } from 'react-router-dom';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -65,6 +67,9 @@ const styles = theme => ({
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
+  active: {
+    backgroundColor: theme.palette.action.selected
+  }
 });
 
 class ResponsiveDrawer extends React.Component {
@@ -83,10 +88,10 @@ class ResponsiveDrawer extends React.Component {
       <div>
         <div className={classes.toolbar} />
         <List>
-          <ListItem component={Link} to="/git-chart" button key={'git graph'}>
+          <ListItem component={NavLink} to="/git-chart" button key={'git graph'} activeClassName={classes.active}>
             <ListItemText primary={'git graph'} />
           </ListItem>
-          <ListItem component={Link} to="/user-registration" button key={'registration'}>
+          <ListItem component={NavLink} to="/user-registration" button key={'registration'} activeClassName={classes.active}>
             <ListItemText primary={'registration'} />
           </ListItem>
         </List>
@@ -112,7 +117,6 @@ class ResponsiveDrawer extends React.Component {
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer}>
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <Hidden smUp implementation="css">
             <Drawer
               container={this.props.container}

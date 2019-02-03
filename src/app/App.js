@@ -15,6 +15,7 @@ import {
 const theme = createMuiTheme({ typography: { useNextVariants: true } });
 
 class App extends React.Component {
+
   render() {
     return (
       <Router>

@@ -1,29 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { registerUser } from '../common/APIUtils';
-import { DatePicker } from 'material-ui-pickers';
-import { TimePicker } from 'material-ui-pickers';
-import { withStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import Button from '@material-ui/core/Button';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Snackbar from '@material-ui/core/Snackbar';
-
-const styles = theme => ({
-  container: {
-  },
-  formControl: {
-    // margin: theme.spacing.unit,
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-});
+import React from 'react'
+import PropTypes from 'prop-types'
+import { registerUser } from '../common/APIUtils'
+import { DatePicker } from 'material-ui-pickers'
+import { TimePicker } from 'material-ui-pickers'
+import FormControl from '@material-ui/core/FormControl'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import Button from '@material-ui/core/Button'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import Snackbar from '@material-ui/core/Snackbar'
+import './Registration.css'
 
 const initialState = {
   name: '',
@@ -91,26 +77,27 @@ class Registration extends React.Component {
   };
 
   render() {
-    const { name, address, dateOfBirth, hourOfDelivery, nameError, dateOfBirthError, hourOfDeliveryError } = this.state;
+    const { name, address, dateOfBirth, hourOfDelivery, nameError, dateOfBirthError, hourOfDeliveryError, registerBtnDisabled } = this.state;
 
     return (
       <div>
-        <div>
-          <FormControl>
+        <div className="form-control">
+          <FormControl error={nameError}>
             <InputLabel htmlFor="component-name">Name</InputLabel>
             <Input id="component-name" value={name} onChange={e => this.handleChange(e.target.value, 'name')} />
+            <FormHelperText id="component-error-text">{nameError ? 'Name is required' : ''}</FormHelperText>
           </FormControl>
-          <FormHelperText id="component-error-text">{nameError ? 'Name is required' : ''}</FormHelperText>
         </div>
-        <div>
+        <div className="form-control">
           <FormControl>
             <InputLabel htmlFor="component-address">Address</InputLabel>
             <Input id="component-address" value={address} onChange={e => this.handleChange(e.target.value, 'address')} />
-            <FormHelperText id="component-error-text"></FormHelperText>
+            <FormHelperText></FormHelperText>
           </FormControl>
         </div>
-        <div>
+        <div className="form-control">
           <DatePicker
+            error={dateOfBirthError}
             required
             clearable
             label="Date of birth"
@@ -120,9 +107,11 @@ class Registration extends React.Component {
             onChange={e => this.handleChange(e, 'dateOfBirth')}
             animateYearScrolling
           />
-          <FormHelperText id="component-error-text">{dateOfBirthError ? 'Date is required' : ''}</FormHelperText>
+          <FormHelperText id="component-error-text" error={dateOfBirthError}>
+            {dateOfBirthError ? 'Date is required' : ''}
+          </FormHelperText>
         </div>
-        <div>
+        <div className="form-control">
           <TimePicker
             required
             clearable
@@ -131,9 +120,11 @@ class Registration extends React.Component {
             value={hourOfDelivery}
             onChange={e => this.handleChange(e, 'hourOfDelivery')}
           />
-          <FormHelperText id="component-error-text">{this.state.hourOfDeliveryError ? 'hour of delivery is required' : ''}</FormHelperText>
+          <FormHelperText id="component-error-text" error={hourOfDeliveryError}>
+            {this.state.hourOfDeliveryError ? 'hour of delivery is required' : ''}
+          </FormHelperText>
         </div>
-        <Button variant="contained" disabled={this.state.registerBtnDisabled} color="primary" onClick={this.register}>
+        <Button className="register-button" variant="contained" disabled={registerBtnDisabled} color="primary" onClick={this.register}>
           Register
         </Button>
         <Snackbar
